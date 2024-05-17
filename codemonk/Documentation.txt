@@ -1,0 +1,53 @@
+
+Architecture
+The Codemonk project follows a typical Django architecture with a RESTful API design. It consists of the following components:
+1.	Models: Define the structure of the database tables.
+2.	Serializers: Convert model instances to JSON and vice versa for API interaction.
+3.	Views: Define API endpoints and handle request/response processing.
+4.	URLs: Map URLs to corresponding views.
+5.	Admin: Provides an interface for managing database records via the Django admin panel.
+Database Schema
+The project uses a PostgreSQL database with the following schema:
+•	CustomUser: Stores user details like email, name, and date of birth.
+•	Paragraph: Stores paragraphs of text along with creation and modification timestamps.
+•	Word: Stores individual words extracted from paragraphs.
+•	WordToParagraphMapping: Represents the many-to-many relationship between words and paragraphs.
+Authentication
+Authentication is implemented using JSON Web Tokens (JWT) provided by the djangorestframework_simplejwt package. Users can obtain JWT tokens by providing their credentials (email and password) to the /api/token/ endpoint.
+API Endpoints
+•	/api/users/: User management endpoints for user registration and retrieval.
+•	/api/token/: Endpoint for obtaining JWT authentication tokens.
+•	/api/save-paragraph/: Endpoint for saving paragraphs of text.
+•	/api/search/: Endpoint for searching paragraphs based on specific words.
+Running the Code
+Prerequisites
+•	Python 3.x installed on your system.
+•	PostgreSQL database installed and configured.
+Installation
+1.Clone the repository:
+git clone <repository-url> cd codemonk
+
+
+2.Install dependencies:
+pip install -r requirements.txt
+Configure the database:
+•	Create a PostgreSQL database.
+•	Update the database settings in codemonk/settings.py with your database credentials.
+Apply migrations:
+python manage.py migrate
+Run the Django development server:
+python manage.py runserver
+Testing
+Unit Tests
+Unit tests are included in the rest/tests.py file. You can run the tests using the following command:
+python manage.py test rest
+API Testing
+You can test the API endpoints using tools like cURL, Postman, or writing automated tests with libraries like requests in Python.
+1.Obtain JWT token:
+curl -X POST http://127.0.0.1:8000/api/token/ -d "email=<your-email>&password=<your-password>"
+2.Use the token to access protected endpoints:
+curl -H "Authorization: Bearer <your-token>" http://127.0.0.1:8000/api/users/
+3.Test other endpoints like saving paragraphs or searching based on specific words.
+Conclusion
+The Codemonk project provides a scalable and efficient solution for managing paragraphs of text and searching based on specific words. It follows best practices in Django development and provides clear API documentation for ease of use.
+
